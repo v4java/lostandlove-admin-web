@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<admin>
+	<user>
+		<admin_user account="admin" password="admin123"/>
+	</user>
+	<role>
+		<admin_role name="超级管理员" />
+	</role>
+	
+	<privilege>
+		<privilege name="首页" url="index.do" code="" is_show="1" >
+<!-- 		
+			<privilege name="首页通知" url="home.do" is_show="1" />
+			<privilege name="编辑密码" url="adminUser/findAdminUserPassword.do" code="update_password" is_show="1" />
+			<privilege name="更新密码" url="adminUser/updateAdminUserPassword.do" code="" is_show="1" />
+ -->		
+		</privilege>
+
+		
+		<privilege name="系统设置" url="javascript:;" code="" is_show="0" >
+			<privilege name="用户管理" url="adminUser/findAdminUser.do" code="" is_show="0">
+				
+				<privilege name="新增" url="adminUser/insertAdminUser.do" code="insert" is_show="1" />
+				<privilege name="编辑" url="adminUser/findAdminUserById.do" code="update" is_show="1" />
+				<privilege name="更新" url="adminUser/updateAdminUser.do" code="" is_show="1" />
+				<privilege name="删除" url="adminUser/deleteAdminUser.do" code="delete" is_show="1" />
+				<privilege name="角色配置" url="adminUser/findAdminUserRole.do" code="role_config" is_show="1" />
+				<privilege name="更新角色配置" url="adminUser/updateAdminUserRole.do" code="" is_show="1" />
+
+			</privilege>
+			<privilege name="角色管理" url="adminRole/findAdminRole.do" code="" is_show="0">
+
+				<privilege name="新增" url="adminRole/insertAdminRole.do" code="insert" is_show="1" />
+				<privilege name="删除" url="adminRole/deleteAdminRole.do" code="delete" is_show="1" />
+				<privilege name="更新" url="adminRole/updateAdminRole.do" code="update" is_show="1" />
+				<privilege name="批量更新" url="adminRole/batchUpdateAdminRole.do" code="batch_update" is_show="1" />
+				<privilege name="查看权限配置" url="adminRole/findAdminRolePrivilege.do" code="privilege_config" is_show="1" />
+				<privilege name="权限配置" url="adminRole/updateAdminRolePrivilege.do" code="" is_show="1" />
+				
+			</privilege>
+			<privilege name="权限管理" url="adminPrivilege/findAdminPrivilege.do" code="" is_show="0">
+
+				<privilege name="新增" url="adminPrivilege/insertAdminPrivilege.do" code="insert" is_show="1" />
+				<privilege name="删除" url="adminPrivilege/deleteAdminPrivilege.do" code="delete" is_show="1" />
+				<privilege name="更新" url="adminPrivilege/updateAdminPrivilege.do" code="update" is_show="1" />
+				<privilege name="批量更新" url="adminPrivilege/batchUpdateAdminPrivilege.do" code="batch_update" is_show="1" />
+				
+			</privilege>
+		</privilege>
+	</privilege>
+	
+</admin>
