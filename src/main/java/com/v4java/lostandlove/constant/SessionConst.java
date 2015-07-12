@@ -8,4 +8,5 @@ public class SessionConst {
 	
 	public final static String ADMIN_USER="ADMIN_USER";
 	
+	public final static String ADMIN_USER_PERMISSIONS="ADMIN_USER_PERMISSIONS";
 }

@@ -14,6 +14,7 @@ public class ServletPathConst {
 	static{
 		if(ADMIN_MAPPING_URLS.size()<=0){
 			ADMIN_MAPPING_URLS.add("/login.do");
+			ADMIN_MAPPING_URLS.add("/index.do");
 		}
 
 	}

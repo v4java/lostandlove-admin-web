@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<beans xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	 
-	    xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	         http://www.springframework.org/schema/context
 	         http://www.springframework.org/schema/context/spring-context-3.0.xsd
@@ -14,52 +14,59 @@
 	         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 	         http://www.springframework.org/schema/mvc  
 	         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
-	         
+
 	<context:component-scan base-package="com.v4java.lostandlove.action"
 		use-default-filters="true">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-           <!--  避免IE执行AJAX时,返回JSON出现下载文件 -->
-           
-	<!-- 启动Springmvc注解驱动 -->
-    <mvc:annotation-driven/>
- <!-- 返回json 方法一 需要导入 fastjson.jar包 -->  
-    <mvc:annotation-driven>
-        <mvc:message-converters register-defaults="false">
-            <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
-            <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
-                        <value>text/html;charset=UTF-8</value>
-                        <value>application/json;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>           
-    
 
+
+
+
+	<!-- 拦截器 -->
+	<bean id="loginInterceptor" class="com.v4java.lostandlove.interceptor.LoginInterceptor"/>
+	<bean id="permissionInterceptor" class="com.v4java.lostandlove.interceptor.PermissionInterceptor"/>
+	<!-- 拦截器 -->
+
+
+
+	
+	
+ <!--拦截栈  -->
 	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"> -->
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="interceptors">
 			<list>
 				<ref bean="loginInterceptor" />
+				<ref bean="permissionInterceptor"/>
+				
 			</list>
 		</property>
 	</bean>
 
 
-	<!-- 拦截器 -->
-	
-	<bean id="loginInterceptor" class="com.v4java.lostandlove.interceptor.LoginInterceptor">
-	</bean>
-	<!-- 拦截器 -->
 
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+	<bean id="fastJsonHttpMessageConverter"
+		class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!--传递json  -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="fastJsonHttpMessageConverter" /><!-- json转换器 -->
+			</list>
+		</property>
+	</bean>
+
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

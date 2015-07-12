@@ -1,0 +1,53 @@
+package com.v4java.lostandlove.interceptor;
+
+
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.v4java.lostandlove.constant.ServletPathConst;
+import com.v4java.lostandlove.constant.SessionConst;
+
+public class PermissionInterceptor implements HandlerInterceptor {
+
+	@Override
+	public boolean preHandle(HttpServletRequest request,HttpServletResponse response, Object handler) throws Exception {
+		String url = request.getServletPath();
+		if(ServletPathConst.ADMIN_MAPPING_URLS.contains(url)){
+			return true;
+		}
+		List<String> adminUserPermissions= (List<String>) request.getSession().getAttribute(SessionConst.ADMIN_USER_PERMISSIONS);
+		if (url.endsWith("Json.do")) {
+			url = url.replace("Json.do", ".do");
+		}
+		if (adminUserPermissions.contains(url)) {
+			return true;
+		}
+		PrintWriter out = null;
+		out = response.getWriter();
+		out.println("没有权限!");
+		out.flush();
+		out.close();
+		return false;
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request,
+			HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		
+	}
+
+	@Override
+	public void afterCompletion(HttpServletRequest request,
+			HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		
+	}
+
+}
