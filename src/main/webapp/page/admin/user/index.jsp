@@ -64,13 +64,13 @@
 					        </div>
 					        <div class="form-group">
 					            <div class="input-group">
-					                <input class="form-control" type="date" placeholder="创建时间(开始)" name="createTimeNameStart">
+					                <input class="form-control" type="date" placeholder="创建时间(开始)" name="createTimeStart">
 					            </div>
 					        	<div class="input-group">
-					                <input class="form-control" type="date" placeholder="创建时间(结束)" name="createTimeNameEnd">
+					                <input class="form-control" type="date" placeholder="创建时间(结束)" name="createTimeEnd">
 					            </div>
 					        </div>
-					        <button type="submit" class="btn btn-default">搜索</button>
+					        <button type="submit" class="btn btn-default" name="querySearch">搜索</button>
 					    </div>
 					</div>
 					<table id="data-table" data-url="getAdminUserJson.do" data-height="555" data-method="post" data-show-refresh="true" 
@@ -79,8 +79,8 @@
 						    <tr>
 					        <th data-field="account" data-align="center" >帐号</th>
 					        <th data-field="pwd" data-align="center" >密码</th>
-					        <th data-field="statusName" data-align="center" class="col-md-1">是否可用</th>
-					        <th data-field="isDeleteName" data-align="center" class="col-md-1">是否删除</th>
+					        <th data-field="statusName" data-align="center" class="col-md-1 status">是否可用</th>
+					        <th data-field="isDeleteName" data-align="center" class="col-md-1 is_delete">是否删除</th>
 					        <th data-field="createTimeName" data-align="center" >创建时间</th>
 					        <th data-field="operation" data-align="center" class="col-md-2">操作</th>
    						 	</tr>	
@@ -123,8 +123,7 @@
     	        autoclose: true,
     	        todayBtn: true
     	    });
-    	$("#custom-toolbar").on("click","button[type='submit']",function(){
-    	});
+
     	function params(){
     		var table = $('#data-table');
     		return '';

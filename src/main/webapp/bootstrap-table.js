@@ -490,10 +490,16 @@
         this.initFooter();
         this.initToolbar();
         this.initPagination();
-        this.initBody();
+        this.initBody(); 
         this.initServer();
+        this.initCustomToolbar();
     };
-
+    
+    BootstrapTable.prototype.initCustomToolbar = function () {
+    	$("#custom-toolbar").on("click","button[type='submit']",function(){
+    		$('#data-table').bootstrapTable("querySearch");
+    	});
+	}
     BootstrapTable.prototype.initLocale = function () {
         if (this.options.locale) {
             var parts = this.options.locale.split(/-|_/);
@@ -975,7 +981,7 @@
                 .off('click').on('click', $.proxy(this.togglePagination, this));
         }
 
-        if (this.options.showRefresh) {
+        if (this.options.show) {
             this.$toolbar.find('button[name="refresh"]')
                 .off('click').on('click', $.proxy(this.refresh, this));
         }
@@ -1242,7 +1248,7 @@
         $next = this.$pagination.find('.page-next');
         $last = this.$pagination.find('.page-last');
         $number = this.$pagination.find('.page-number');
-
+        
         if (this.options.pageNumber <= 1) {
             $first.addClass('disabled');
             $pre.addClass('disabled');
@@ -1692,12 +1698,9 @@
         
         ///
         var searchQuery =this.getCustomToolbar();
-        console.log(searchQuery);
         $.each(searchQuery,function(name,val){
-        	console.log(name+"  "+ val);
         	params[name]=val;
         });
-        console.log(params);
         // false to stop request
         if (data === false) {
             return;
@@ -2341,7 +2344,14 @@
         }
         this.initServer(params && params.silent, params && params.query);
     };
-
+    
+    ///
+    BootstrapTable.prototype.querySearch = function (params) {
+        this.options.pageNumber = 1;
+        this.initServer(params && params.silent, params && params.query);
+    };
+    
+    
     BootstrapTable.prototype.resetWidth = function () {
         if (this.options.showHeader && this.options.height) {
             this.fitHeader();
@@ -2454,7 +2464,7 @@
         'selectPage', 'prevPage', 'nextPage',
         'togglePagination',
         'toggleView',
-        'refreshOptions'
+        'refreshOptions',"querySearch"
     ];
 
     $.fn.bootstrapTable = function (option) {
@@ -2502,6 +2512,7 @@
 
     $(function () {
         $('[data-toggle="table"]').bootstrapTable();
+        
     });
 
 }(jQuery);
