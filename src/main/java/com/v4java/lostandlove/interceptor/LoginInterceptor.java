@@ -28,13 +28,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if(ServletPathConst.ADMIN_MAPPING_URLS.contains(url)){
 			return true;
 		}
-		AdminUserVO  adminUserVO=(AdminUserVO) request.getSession().getAttribute(SessionConst.ADMIN_USER);
+/*		AdminUserVO  adminUserVO=(AdminUserVO) request.getSession().getAttribute(SessionConst.ADMIN_USER);
 		if (adminUserVO==null) {
-			adminUserVO = new AdminUserVO();
-			adminUserVO.setAccount("admin");
-			adminUserVO.setAdminRoleId(1);
-			adminUserVO.setAdminRoleName("超级管理员");
-		}
+			request.getRequestDispatcher("/showLogin.do").forward(request, response);
+			return false;
+		}*/
 /*		String value = CookieUtil.getCookieValue(request.getCookies(), AdminCookieConst.ADMINUSER_COOKIE_NAME);
 		if (StringUtils.isEmpty(value)) {
 			new YuleException("用户未登录");
