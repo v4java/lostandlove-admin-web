@@ -73,7 +73,7 @@
 					        <button type="submit" class="btn btn-default" name="querySearch">搜索</button>
 					    </div>
 					</div>
-					<table id="data-table" data-url="getAdminUserJson.do" data-height="555" data-method="post" data-show-refresh="true" 
+					<table id="data-table" data-url="findAdminUserJson.do" data-height="555" data-method="post" data-show-refresh="true" 
 					data-side-pagination="server" data-pagination="true" data-page-list="[10, 20, 50]" data-search="false">
 						   <thead>
 						    <tr>

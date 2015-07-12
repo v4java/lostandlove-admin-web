@@ -38,8 +38,8 @@ public class AdminUserAction {
 		
 	}
 
-	@RequestMapping(value = "/getAdminUserJson",method = RequestMethod.POST)
-	public @ResponseBody BTables<AdminUserVO> getAdminUserJson(@RequestBody AdminUserQuery adminUserQuery){
+	@RequestMapping(value = "/findAdminUserJson",method = RequestMethod.POST)
+	public @ResponseBody BTables<AdminUserVO> findAdminUserJson(@RequestBody AdminUserQuery adminUserQuery){
 		BTables<AdminUserVO> bTables = new BTables<AdminUserVO>();
 		try {
 			List<AdminUserVO> adminUserVOs = adminUserService.selectAdminUserVO(adminUserQuery);

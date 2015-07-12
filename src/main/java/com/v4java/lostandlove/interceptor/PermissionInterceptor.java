@@ -29,6 +29,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 			return true;
 		}
 		PrintWriter out = null;
+		response.setContentType("text/html; charset=utf-8");
 		out = response.getWriter();
 		out.println("没有权限!");
 		out.flush();
