@@ -41,10 +41,9 @@ public class IndexAction  extends BaseAction{
 			adminPrivilegeHTML = new StringBuffer();
 			List<AdminPrivilegeVO> adminPrivileges= adminRolePrivilegeService.selectAdminRolePrivilegeByRoleId(adminUserVO.getAdminRoleId());
 			if (null!=adminPrivileges&&adminPrivileges.size()>0) {
-				
+				adminUserPermissions = new ArrayList<String>();
 				for (AdminPrivilegeVO adminPrivilegeVO : adminPrivileges) {
 					if (adminPrivilegeVO.getParentId()==0) {
-						adminUserPermissions = new ArrayList<String>();
 						adminPrivilegeHTML.append("<li class=\"treeview\"><a href=\"#\"><i class=\"fa fa-link\"></i> <span>"+adminPrivilegeVO.getName()+"</span> <i class=\"fa fa-angle-left pull-right\"></i></a><ul class=\"treeview-menu\" style=\"display: none;\">");
 						for (AdminPrivilegeVO adminPrivilegeson : adminPrivilegeVO.getAdminPrivilegeVOs()) {
 							if (adminPrivilegeVO.getId().compareTo(adminPrivilegeson.getId())!=0) {
