@@ -21,15 +21,17 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		if(ServletPathConst.ADMIN_MAPPING_URLS.contains(url)){
 			return true;
 		}
+		@SuppressWarnings("unchecked")
 		List<String> adminUserPermissions= (List<String>) request.getSession().getAttribute(SessionConst.ADMIN_USER_PERMISSIONS);
 		if (url.endsWith("Json.do")) {
-			url = url.replace("Json.do", ".do");
+			url = url.replace("Json.do", ".do").replace("get", "find");
 		}
 		if (adminUserPermissions.contains(url)) {
 			return true;
 		}
 		PrintWriter out = null;
 		out = response.getWriter();
+		response.setContentType("text/html; charset=utf-8");
 		out.println("没有权限!");
 		out.flush();
 		out.close();
