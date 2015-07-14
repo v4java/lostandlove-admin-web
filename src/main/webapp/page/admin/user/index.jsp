@@ -94,7 +94,6 @@
       </div><!-- /.content-wrapper -->
 		<jsp:include page="/footer.jsp"></jsp:include>
     </div><!-- ./wrapper -->
-
     <!-- jQuery 2.1.4 -->
     <script src="http://static.lostandlove.com/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->
@@ -130,5 +129,7 @@
     	}
     });
 </script>
+
 </body>
 </html>
+
