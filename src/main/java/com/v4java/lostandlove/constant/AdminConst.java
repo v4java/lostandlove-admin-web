@@ -18,9 +18,9 @@ public class AdminConst {
 	
 	public final static String[] OP_DELETE_NAME = {"删除","恢复"};
 	
-	public final static String[] OP_STATUS = {"1","0"};
+	public final static Integer[] OP_STATUS = {1,0};
 	
-	public final static String[] OP_DELETE = {"1","0"};
+	public final static Integer[] OP_DELETE = {1,0};
 	
 	public final static int IS_ADMIN_TRUE = 0;
 	

@@ -17,7 +17,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,HttpServletResponse response, Object handler) throws Exception {
-		String url = request.getServletPath();
+/*		String url = request.getServletPath();
 		if(ServletPathConst.ADMIN_MAPPING_URLS.contains(url)){
 			return true;
 		}
@@ -34,8 +34,8 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		response.setContentType("text/html; charset=utf-8");
 		out.println("没有权限!");
 		out.flush();
-		out.close();
-		return false;
+		out.close();*/
+		return true;
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class AdminUserAction {
 				//冻结/解冻 按钮
 				op.append("<button name=\"updateStatus\"");
 				//data-id
-				op.append("data-id=\"");
+				op.append("data-name=\"status\" data-id=\"");
 				op.append(adminUserVO.getId());
 				op.append("\" ");
 				//data-val
@@ -65,7 +65,7 @@ public class AdminUserAction {
 				//删除/恢复 按钮
 				op.append("<button name=\"updateStatus\" ");
 				//data-id
-				op.append("data-id=\"");
+				op.append("data-name=\"isDelete\"  data-id=\"");
 				op.append(adminUserVO.getId());
 				op.append("\" ");
 				//data-val
@@ -97,6 +97,15 @@ public class AdminUserAction {
 		try {
 			int n  = adminUserService.updateAdminUserStatus(adminUser);
 			updateStatus.setIsSuccess(n);
+			if (n==1) {
+				int x =adminUser.getStatus();
+				updateStatus.setTarget("status");
+				updateStatus.setStatus(x);
+				updateStatus.setStatusName(AdminConst.STATUS_NAME[x]);
+				updateStatus.setOpStatus(AdminConst.OP_STATUS[x]);
+				updateStatus.setOpStatusName(AdminConst.OP_STATUS_NAME[x]);
+			}
+			updateStatus.setIsSuccess(n);
 		} catch (Exception e) {
 			logger.error("更改管理员用户状态错误", e);
 		}
@@ -115,6 +124,14 @@ public class AdminUserAction {
 		try {
 			int n = adminUserService.updateAdminUserIsDelete(adminUser);
 			updateStatus.setIsSuccess(n);
+			if (n==1) {
+				int x =adminUser.getIsDelete();
+				updateStatus.setTarget("is_delete");
+				updateStatus.setStatus(x);
+				updateStatus.setStatusName(AdminConst.DELETE_NAME[x]);
+				updateStatus.setOpStatus(AdminConst.OP_DELETE[x]);
+				updateStatus.setOpStatusName(AdminConst.OP_DELETE_NAME[x]);
+			}
 		} catch (Exception e) {
 			logger.error("更改管理员用户是否删除错误", e);
 		}

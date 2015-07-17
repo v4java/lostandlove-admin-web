@@ -128,11 +128,28 @@
     		return '';
     	}
     	
-    	$("#tbody").("click","button[name='updateStatus']",function(){
-    		var btn = $(this);
-    		console.log(btn);
-    		
-    	})
+    	$("tbody").on("click","button[name='updateStatus']",function(){
+    		var obj = $(this);
+			var data = {};
+			data["id"]= obj.attr("data-id");
+			data[obj.attr("data-name")]=obj.attr("data-status");
+		    $.ajax({
+	             type: "POST",
+	             url: obj.attr("op-url"),
+	             contentType: 'application/json',
+	             dataType: 'json',
+	             data: JSON.stringify(data),
+	             success: function(data){
+							if(data.isSuccess==1){
+								obj.attr("data-status",data.opStatus);
+								obj.text(data.opStatusName);
+								var td =obj.parent().parent().find("."+data.target);
+								td.text(data.statusName);
+							}
+	               		}
+		    
+	         });
+    	});
     	
     });
 

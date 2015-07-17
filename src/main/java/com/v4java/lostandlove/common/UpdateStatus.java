@@ -9,9 +9,9 @@ public class UpdateStatus implements Serializable{
 	 */
 	private static final long serialVersionUID = -6983483988449652863L;
 
-	private String opStatus ;
+	private Integer opStatus ;
 	
-	private String status ;
+	private Integer status ;
 	
 	private String opStatusName ;
 	
@@ -21,19 +21,21 @@ public class UpdateStatus implements Serializable{
 
 	private Integer isSuccess;
 
-	public String getOpStatus() {
+	
+
+	public Integer getOpStatus() {
 		return opStatus;
 	}
 
-	public void setOpStatus(String opStatus) {
+	public void setOpStatus(Integer opStatus) {
 		this.opStatus = opStatus;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
