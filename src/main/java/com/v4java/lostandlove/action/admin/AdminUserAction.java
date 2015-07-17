@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.v4java.lal.pojo.AdminUser;
 import com.v4java.lal.query.admin.AdminUserQuery;
 import com.v4java.lal.service.IAdminUserService;
 import com.v4java.lal.view.admin.AdminUserVO;
@@ -92,8 +92,15 @@ public class AdminUserAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateAdminStatus",method = RequestMethod.POST)
-	public @ResponseBody UpdateStatus updateAdminStatus(){
+	public @ResponseBody UpdateStatus updateAdminStatus(@RequestBody AdminUser adminUser){
 		UpdateStatus updateStatus = new UpdateStatus();
+		try {
+			int n  = adminUserService.updateAdminUserStatus(adminUser);
+			updateStatus.setIsSuccess(n);
+		} catch (Exception e) {
+			logger.error("更改管理员用户状态错误", e);
+		}
+		
 		return updateStatus;
 	}
 	
@@ -103,8 +110,14 @@ public class AdminUserAction {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateAdminIsDlete",method = RequestMethod.POST)
-	public @ResponseBody UpdateStatus updateAdminIsDlete(@RequestParam(value="id",required=true)Integer id,@RequestParam(value="status",required=true)Integer status){
+	public @ResponseBody UpdateStatus updateAdminIsDlete(@RequestBody AdminUser adminUser){
 		UpdateStatus updateStatus = new UpdateStatus();
+		try {
+			int n = adminUserService.updateAdminUserIsDelete(adminUser);
+			updateStatus.setIsSuccess(n);
+		} catch (Exception e) {
+			logger.error("更改管理员用户是否删除错误", e);
+		}
 		return updateStatus;
 	}
 }
