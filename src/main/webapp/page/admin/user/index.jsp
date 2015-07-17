@@ -128,7 +128,11 @@
     		return '';
     	}
     	
-    	
+    	$("#tbody").("click","button[name='updateStatus']",function(){
+    		var btn = $(this);
+    		console.log(btn);
+    		
+    	})
     	
     });
 
