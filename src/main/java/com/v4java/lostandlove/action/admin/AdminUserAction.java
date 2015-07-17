@@ -55,10 +55,10 @@ public class AdminUserAction {
 				op.append(adminUserVO.getId());
 				op.append("\" ");
 				//data-val
-				op.append("data-val=\"");
+				op.append("data-status=\"");
 				op.append(AdminConst.OP_STATUS[adminUserVO.getStatus()]);
 				op.append("\" ");
-				op.append("type=\"button\" op_href=\"updateAdminStatus.do\" class=\"btn btn-warning btn-flat\">");
+				op.append("type=\"button\" op-url=\"updateAdminStatus.do\" class=\"btn btn-warning btn-flat\">");
 				op.append(AdminConst.OP_STATUS_NAME[adminUserVO.getStatus()]);
 				op.append("</button>");
 				
@@ -69,11 +69,11 @@ public class AdminUserAction {
 				op.append(adminUserVO.getId());
 				op.append("\" ");
 				//data-val
-				op.append("data-val=\"");
+				op.append("data-status=\"");
 				op.append(AdminConst.OP_DELETE[adminUserVO.getIsDelete()]);
 				op.append("\" ");
 				
-				op.append("type=\"button\"  op_href=\"updateAdminIsDlete.do\" class=\"btn btn-danger btn-flat\">");
+				op.append("type=\"button\"  op-url=\"updateAdminIsDlete.do\" class=\"btn btn-danger btn-flat\">");
 				op.append(AdminConst.OP_DELETE_NAME[adminUserVO.getIsDelete()]);
 				op.append("</button>");
 				adminUserVO.setOperation(op.toString());
