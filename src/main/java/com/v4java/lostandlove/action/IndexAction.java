@@ -1,6 +1,5 @@
 package com.v4java.lostandlove.action;
 
-import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import com.v4java.lal.view.admin.AdminPrivilegeVO;
 import com.v4java.lal.view.admin.AdminUserVO;
 import com.v4java.lostandlove.common.BaseAction;
 import com.v4java.lostandlove.common.Const;
-import com.v4java.lostandlove.constant.AdminConst;
 import com.v4java.lostandlove.constant.SessionConst;
 
 
@@ -43,10 +41,9 @@ public class IndexAction  extends BaseAction{
 			adminPrivilegeHTML = new StringBuffer();
 			List<AdminPrivilegeVO> adminPrivileges= adminRolePrivilegeService.selectAdminRolePrivilegeByRoleId(adminUserVO.getAdminRoleId());
 			if (null!=adminPrivileges&&adminPrivileges.size()>0) {
-				
+				adminUserPermissions = new ArrayList<String>();
 				for (AdminPrivilegeVO adminPrivilegeVO : adminPrivileges) {
 					if (adminPrivilegeVO.getParentId()==0) {
-						adminUserPermissions = new ArrayList<String>();
 						adminPrivilegeHTML.append("<li class=\"treeview\"><a href=\"#\"><i class=\"fa fa-link\"></i> <span>"+adminPrivilegeVO.getName()+"</span> <i class=\"fa fa-angle-left pull-right\"></i></a><ul class=\"treeview-menu\" style=\"display: none;\">");
 						for (AdminPrivilegeVO adminPrivilegeson : adminPrivilegeVO.getAdminPrivilegeVOs()) {
 							if (adminPrivilegeVO.getId().compareTo(adminPrivilegeson.getId())!=0) {
@@ -71,49 +68,4 @@ public class IndexAction  extends BaseAction{
 		session.setAttribute(SessionConst.ADMIN_USER_PERMISSIONS, adminUserPermissions);
 		return "index";
 	}
-	
-/*	@RequestMapping(value="/index",method = RequestMethod.GET)
-	public String index() throws Exception{
-		AdminUserVO  adminUserVO=(AdminUserVO) request.getSession().getAttribute(SessionConst.ADMIN_USER);
-		if (adminUserVO==null) {
-			adminUserVO = new AdminUserVO();
-			adminUserVO.setAccount("admin");
-			adminUserVO.setAdminRoleId(1);
-			adminUserVO.setAdminRoleName("超级管理员");
-		}
-		
-		StringBuffer adminPrivilegeHTML = null;
-		//adminUserVO = getAdminUser();
-		if (null!=adminUserVO) {
-			adminPrivilegeHTML = new StringBuffer();
-			List<AdminPrivilegeVO> adminPrivileges= adminRolePrivilegeService.selectAdminRolePrivilegeByRoleId(adminUserVO.getAdminRoleId());
-			if (null!=adminPrivileges&&adminPrivileges.size()>0) {
-				
-				List<AdminPrivilegeVO> adminPrivilegesParents = new ArrayList<AdminPrivilegeVO>();
-				for (AdminPrivilegeVO adminPrivilegeVO : adminPrivileges) {
-					if (adminPrivilegeVO.getParentId()==0) {
-						adminPrivilegeHTML.append("<li class=\"treeview\"><a href=\"#\"><i class=\"fa fa-link\"></i> <span>"+adminPrivilegeVO.getName()+"</span> <i class=\"fa fa-angle-left pull-right\"></i></a><ul class=\"treeview-menu\" style=\"display: none;\">");
-						List<AdminPrivilege> adminPrivilegesSons = new ArrayList<AdminPrivilege>();
-						int parentId= adminPrivilegeVO.getId();
-						for (AdminPrivilege adminPrivilegeson : adminPrivileges) {
-							if (parentId == adminPrivilegeson.getParentId()) {
-								adminPrivilegesSons.add(adminPrivilegeson);
-								adminPrivilegeHTML.append("<li><a  href=\"");
-								adminPrivilegeHTML.append(Const.LAL);
-								adminPrivilegeHTML.append(adminPrivilegeson.getUrl());
-								adminPrivilegeHTML.append("\">");
-								adminPrivilegeHTML.append(adminPrivilegeson.getName());
-								adminPrivilegeHTML.append("</a></li>");
-							}
-						}
-					}
-					adminPrivilegeHTML.append("</ul></li>");
-					adminPrivilegesParents.add(adminPrivilegeVO);
-				}
-				
-			}
-		}
-		session.setAttribute("adminPrivilegeHTML", adminPrivilegeHTML.toString());
-		return "index";
-	}*/
 }
