@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>江西师范大学软件学院毕业设计选题管理系统用户登录</title>
+<title>系统用户登录</title>
 <link href="./login/login.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all">
 <script src="http://static.lostandlove.com/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript" src="./login/jquery.SuperSlide.js"></script>
@@ -64,9 +64,14 @@ $(".stu_login_error").Validform({
 		var objtip=$(".stu_error_box");
 		cssctl(objtip,o.type);
 		objtip.text(msg);
-		console.log("dasfad");
 	},
-	ajaxPost:true
+	ajaxPost:true,
+	callback:function(data){
+		$(".Validform_checktip").html(data.msg);
+		if(data.flag){
+			location.href="index.do";
+		}
+	},
 });
 });
 </script>

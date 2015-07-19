@@ -29,23 +29,35 @@ public class LoginAction extends BaseAction {
 	@ResponseBody 
 	@RequestMapping(value="/login",method = RequestMethod.POST)
 	public LoginMsg login(@RequestParam("account") String account,@RequestParam("userPwd") String userPwd,@RequestParam("code") String code){
-		LoginMsg loginMsg =new LoginMsg();
+		LoginMsg loginMsg =  (LoginMsg) request.getSession().getAttribute(SessionConst.LOGIN_MSG);
+		if (loginMsg == null) {
+			loginMsg = new LoginMsg();
+			loginMsg.setFailCount(0);
+		}
+		int count  = loginMsg.getFailCount();
 		loginMsg.setFlag(false);
-		try {
-			AdminUserVO adminUserVO = adminUserService.selectAdminUserVOByAccount(account);
-			if (adminUserVO!=null) {
-				if (userPwd.equals(adminUserVO.getPassword())) {
-					loginMsg.setFlag(true);
-					loginMsg.setFailCount(0);
-					session.setAttribute(SessionConst.ADMIN_USER, adminUserVO);
-				}else {
-					loginMsg.setMsg(LoginMsgConst.PWD_ERROR);
+		if (count <=2) {
+			String eCode = (String) request.getSession().getAttribute(SessionConst.CODE);
+			
+			try {
+				AdminUserVO adminUserVO = adminUserService.selectAdminUserVOByAccount(account);
+				if (adminUserVO!=null) {
+					if (userPwd.equals(adminUserVO.getPassword())) {
+						loginMsg.setFlag(true);
+						loginMsg.setFailCount(0);
+						loginMsg.setMsg(LoginMsgConst.ACCOUNT_SUCCESS);
+						session.setAttribute(SessionConst.ADMIN_USER, adminUserVO);
+					}else {
+						loginMsg.setMsg(LoginMsgConst.PWD_ERROR);
+					}
+				}else{
+					loginMsg.setMsg(LoginMsgConst.ACCOUNT_NO);
 				}
-			}else{
-				loginMsg.setMsg(LoginMsgConst.ACCOUNT_NO);
+			} catch (Exception e) {
+				logger.error("用户登录查询错误", e);
 			}
-		} catch (Exception e) {
-			logger.error("用户登录查询错误", e);
+		}else{
+			loginMsg.setMsg(LoginMsgConst.ACCOUNT_SUCCESS);
 		}
 		session.setAttribute(SessionConst.LOGIN_MSG, loginMsg);
 		return loginMsg;

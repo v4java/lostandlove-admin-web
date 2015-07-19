@@ -27,13 +27,6 @@ public class IndexAction  extends BaseAction{
 	@RequestMapping(value="/index",method = RequestMethod.GET)
 	public String index() throws Exception{
 		AdminUserVO  adminUserVO=(AdminUserVO) request.getSession().getAttribute(SessionConst.ADMIN_USER);
-		if (adminUserVO==null) {
-			adminUserVO = new AdminUserVO();
-			adminUserVO.setAccount("admin");
-			adminUserVO.setAdminRoleId(1);
-			adminUserVO.setAdminRoleName("超级管理员");
-		}
-		
 		StringBuffer adminPrivilegeHTML = null;
 		List<String> adminUserPermissions = null;
 				//adminUserVO = getAdminUser();
