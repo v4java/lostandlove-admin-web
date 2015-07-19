@@ -4,9 +4,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.v4java.lal.service.IAdminUserService;
@@ -28,16 +28,21 @@ public class LoginAction extends BaseAction {
 	
 	@ResponseBody 
 	@RequestMapping(value="/login",method = RequestMethod.POST)
-	public LoginMsg login(@PathVariable String account,@PathVariable String userPwd,@PathVariable String code){
+	public LoginMsg login(@RequestParam("account") String account,@RequestParam("userPwd") String userPwd,@RequestParam("code") String code){
 		LoginMsg loginMsg =new LoginMsg();
+		loginMsg.setFlag(false);
 		try {
 			AdminUserVO adminUserVO = adminUserService.selectAdminUserVOByAccount(account);
 			if (adminUserVO!=null) {
 				if (userPwd.equals(adminUserVO.getPassword())) {
+					loginMsg.setFlag(true);
+					loginMsg.setFailCount(0);
 					session.setAttribute(SessionConst.ADMIN_USER, adminUserVO);
 				}else {
 					loginMsg.setMsg(LoginMsgConst.PWD_ERROR);
 				}
+			}else{
+				loginMsg.setMsg(LoginMsgConst.ACCOUNT_NO);
 			}
 		} catch (Exception e) {
 			logger.error("用户登录查询错误", e);

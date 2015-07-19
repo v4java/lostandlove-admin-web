@@ -9,6 +9,8 @@ public class LoginMsg implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private boolean flag ;
+	
 	private String msg;
 	
 	private Integer failCount;
@@ -27,6 +29,14 @@ public class LoginMsg implements Serializable{
 
 	public void setFailCount(Integer failCount) {
 		this.failCount = failCount;
+	}
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
 	}
 	
 	
