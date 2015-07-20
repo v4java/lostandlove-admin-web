@@ -24,7 +24,10 @@ public class LoginAction extends BaseAction {
 	@Autowired
 	private IAdminUserService adminUserService;
 
-	
+	public String goLogin(){
+		return "login";
+		
+	}
 	
 	@ResponseBody 
 	@RequestMapping(value="/login",method = RequestMethod.POST)
