@@ -145,6 +145,7 @@ $(function(){
     <li style="opacity: 0; visibility: visible;"><a href="javascript:;"><img src="./login/0.jpg" style="width: 1351px;"></a></li>
     <li style="opacity: 0; visibility: visible;"><a href="javascript:;"><img src="./login/1.jpg" style="width: 1351px;"></a></li>
     <li style="opacity: 1; visibility: visible;"><a href="javascript:;"><img src="./login/2.jpg" style="width: 1351px;"></a></li>
+    <li style="opacity: 1; visibility: visible;"><a href="javascript:;"><img src="./login/3.jpg" style="width: 1351px;"></a></li>
   </ul>
 </div>
 </body>
